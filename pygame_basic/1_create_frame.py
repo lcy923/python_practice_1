@@ -36,14 +36,14 @@ while running:
             running = False             #게임이 진행중이 아님
 
         if event.type == pygame.KEYDOWN:        #키가 눌러졌는지 확인
-            if event.key == pygame.K_LEFT:      #왼쪽으로
-                to_x -= 2
-            elif event.key == pygame.K_RIGHT:   #오른쪽으로
-                to_x += 2
-            elif event.key == pygame.K_UP:      #위로
-                to_y -= 2
-            elif event.key == pygame.K_DOWN:    #아래로
-                to_y += 2
+            if event.key == pygame.K_LEFT:      #캐릭터 왼쪽으로
+                to_x -= 5
+            elif event.key == pygame.K_RIGHT:   #캐릭터 오른쪽으로
+                to_x += 5
+            elif event.key == pygame.K_UP:      #캐릭터 위로
+                to_y -= 5
+            elif event.key == pygame.K_DOWN:    #캐릭터 아래로
+                to_y += 5
 
         if event.type == pygame.KEYUP:          #방향키를 떼면 멈춤
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
