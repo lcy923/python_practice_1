@@ -34,6 +34,14 @@ to_y = 0
 #이동 속도
 character_speed = 0.6
 
+#적 enemy 캐릭터
+enemy = pygame.image.load("C:/Users/user/Desktop/PythonWorkspace/pygame_basic/enemy.png")
+enemy_size = enemy.get_rect().size  #이미지의 크기를 구해옴
+enemy_width = enemy_size[0]         #캐릭터의 가로 크기
+enemy_height = enemy_size[1]        #캐릭터의 세로 크기
+enemy_x_pos = (screen_width/2)-(enemy_width/2)            #화면의 가로 정중앙
+enemy_y_pos = (screen_height/2)-(enemy_height/2)    #화면의 세로 가장 아래부분
+
 #이벤트 루프
 running = True  #게임이 진행중인가?
 while running:
@@ -42,7 +50,6 @@ while running:
 #캐릭터 1초동안 100만큼 이동을 해야 함
 # 10 fps : 1초 동안 10번 동작 -> 1번에 10만큼 이동
 # 20 fps : 1초 동안 5번 동작 -> 1번에 5만큼 이동
-
 
     for event in pygame.event.get():    #어떤 이벤트가 발생하였는가?
         if event.type == pygame.QUIT:   #창닫기 이벤트가 발생했는가?
@@ -79,10 +86,26 @@ while running:
     elif character_y_pos > screen_height - character_height :
         character_y_pos = screen_height - character_height
 
+    #충돌 처리를 위한 정보 업데이트
+    character_rect = character.get_rect()
+    character_rect.left = character_x_pos
+    character_rect.top = character_y_pos        #캐릭터의 이동된 위치로 설정
+
+    enemy_rect = enemy.get_rect()
+    enemy_rect.left = enemy_x_pos
+    enemy_rect.top = enemy_y_pos
+
+    #충돌 체크
+    if character_rect.colliderect(enemy_rect):
+        print("충돌했습니다.")
+        running = False                         #충돌시 종료
+
+
 
     #screen.fill((0,0,255))             #배경 색을 (R,G,B)로 채우기
     screen.blit(background, (0,0))      #배경이미지 불러오기    #안되는 이유는 아래에서 해결
     screen.blit(character, (character_x_pos,character_y_pos))   #캐릭터 불러오기
+    screen.blit(enemy, (enemy_x_pos,enemy_y_pos))   #캐릭터 불러오기
 
     pygame.display.update()             #게임 이미지를 다시 불러와주기
 
